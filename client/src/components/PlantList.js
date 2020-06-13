@@ -36,10 +36,6 @@ export default class PlantList extends Component {
     })
   }
 
-  handleChange = event => {
-    this.setState({search: event.target.value})
-  }
-
 
   /*********  DON'T CHANGE ANYTHING IN THE RENDER FUNCTION *********/
   render() {
