@@ -1,12 +1,41 @@
 import React, { Component } from "react";
 import axios from "axios";
+import e from "express";
 
 export default class PlantList extends Component {
+  // adding state for search
+  state = {
+    plants: [],
+    search: ""
+  };
   // add state with a property called "plants" - initialize as an empty array
 
   // when the component mounts:
   //   - fetch data from the server endpoint - http://localhost:3333/plants
   //   - set the returned plants array to this.state.plants
+
+  componentDidMount() {
+    axios.get('http://localhost:3333/plants')
+    .then(response => {
+      this.setState({plants: response.data.plantsData})
+    })
+    .catch(error => {
+      console.log("Data not found", error)
+    })
+  }
+
+  // stretch = attempting to add filter
+  filteringPlants = plants => {
+    return plants.filter(plant => {
+      if (!this.state.search) {
+        return plant
+      }
+      if(plant.name.toLowerCase().includes(this.state.search.toLowerCase())) {
+        return plant
+      }
+    })
+  }
+
 
   /*********  DON'T CHANGE ANYTHING IN THE RENDER FUNCTION *********/
   render() {
