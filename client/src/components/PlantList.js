@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
+import e from "express";
 
 export default class PlantList extends Component {
+  // adding state for search
   state = {
-    plants: []
+    plants: [],
+    search: ""
   };
   // add state with a property called "plants" - initialize as an empty array
 
@@ -20,6 +23,23 @@ export default class PlantList extends Component {
       console.log("Data not found", error)
     })
   }
+
+  // stretch = attempting to add filter
+  filteringPlants = plants => {
+    return plants.filter(plant => {
+      if (!this.state.search) {
+        return plant
+      }
+      if(plant.name.toLowerCase().includes(this.state.search.toLowerCase())) {
+        return plant
+      }
+    })
+  }
+
+  handleChange = event => {
+    this.setState({search: event.target.value})
+  }
+
 
   /*********  DON'T CHANGE ANYTHING IN THE RENDER FUNCTION *********/
   render() {
